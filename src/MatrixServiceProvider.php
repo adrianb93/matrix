@@ -2,9 +2,9 @@
 
 namespace AdrianBrown\Matrix;
 
+use AdrianBrown\Matrix\Commands\MatrixCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use AdrianBrown\Matrix\Commands\MatrixCommand;
 
 class MatrixServiceProvider extends PackageServiceProvider
 {

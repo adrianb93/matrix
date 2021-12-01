@@ -2,9 +2,9 @@
 
 namespace AdrianBrown\Matrix\Tests;
 
+use AdrianBrown\Matrix\MatrixServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use AdrianBrown\Matrix\MatrixServiceProvider;
 
 class TestCase extends Orchestra
 {
