@@ -15,7 +15,7 @@ class Matrix
 
     public static function make(array $headers = [], array $rows = []): self
     {
-        return (new self)->headers($headers)->rows($rows);
+        return (new self())->headers($headers)->rows($rows);
     }
 
     public function headers(array $headers): self
@@ -109,7 +109,7 @@ class Matrix
 
     public function toTable($tableStyle = 'box', array $columnStyles = []): string
     {
-        $table = new Table($output = new BufferedOutput);
+        $table = new Table($output = new BufferedOutput());
 
         $table->setHeaders(
             ['', ...$this->displayHeaders],
