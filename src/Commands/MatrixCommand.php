@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace AdrianBrown\Matrix\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class MatrixCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'matrix';
 
     public $description = 'My command';
 
