@@ -419,6 +419,7 @@ it('can map each column value for square matrices', function () {
         [0, 0, 0, 1],
     ])->map(function ($value, $a, $b) use (&$headers) {
         $headers[] = $a . $b;
+
         return $value ? 'Y' : 'N';
     })->toTable();
 
@@ -443,6 +444,7 @@ it('can map each column value for wide matrices', function () {
         [0, 1, 1, 1],
     ])->map(function ($value, $a, $b) use (&$headers) {
         $headers[] = $a . $b;
+
         return $value ? 'Y' : 'N';
     })->toTable();
 
@@ -467,6 +469,7 @@ it('can map each column value for tall matrices', function () {
         [0, 0],
     ])->map(function ($value, $a, $b) use (&$headers) {
         $headers[] = $a . $b;
+
         return $value ? 'Y' : 'N';
     })->toTable();
 
