@@ -685,7 +685,7 @@ it('can generate a binary matrix with labels as the input', function () {
 });
 
 it('can do a cartesian product', function () {
-    $table = Matrix::make()->columnHeaders(['one', 'two', 'three'])->rows([
+    $table = Matrix::make()->rows([
         [1, 2, 3],
     ])->cartesianProduct([
         [4, 5],
