@@ -22,6 +22,17 @@ class Matrix
         return new self();
     }
 
+    public static function bits($bits): self
+    {
+        $labels = is_array($bits) ? $bits : [];
+        $bits = is_array($bits) ? count($bits) : (int) $bits;
+
+        return static::make()->rows([
+            collect()->times($bits, fn () => 0)->all(),
+            collect()->times($bits, fn () => 1)->all(),
+        ])->transpose()->cartesianProduct()->columnHeaders($labels);
+    }
+
     public function headers(array $headers): self
     {
         return $this->rowHeaders($headers)->columnHeaders($headers);
@@ -79,6 +90,26 @@ class Matrix
         }
 
         $this->rows = $rows;
+
+        return $this;
+    }
+
+    public function cartesianProduct(...$rows): self
+    {
+        $result = [[]];
+        $rows = array_merge($this->rows, ...$rows);
+
+        foreach ($rows as $index => $values) {
+            $tmp = [];
+            foreach ($result as $resultItem) {
+                foreach ($values as $value) {
+                    $tmp[] = array_merge($resultItem, [$index => $value]);
+                }
+            }
+            $result = $tmp;
+        }
+
+        $this->rows = $result;
 
         return $this;
     }

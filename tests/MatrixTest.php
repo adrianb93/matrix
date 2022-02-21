@@ -641,3 +641,108 @@ it('can be flattened with a callback to map each value', function () {
         [1, 'D', 'D'],
     ]);
 });
+
+it('can generate a binary matrix', function () {
+    $table = Matrix::bits(3)->columnHeaders(['breakfast', 'lunch', 'dinner'])->toTable();
+
+    expect($table)->toBe(collect([
+        '┌───────────┬───────┬────────┐',
+        '│ breakfast │ lunch │ dinner │',
+        '├───────────┼───────┼────────┤',
+        '│ 0         │ 0     │ 0      │',
+        '│ 0         │ 0     │ 1      │',
+        '│ 0         │ 1     │ 0      │',
+        '│ 0         │ 1     │ 1      │',
+        '│ 1         │ 0     │ 0      │',
+        '│ 1         │ 0     │ 1      │',
+        '│ 1         │ 1     │ 0      │',
+        '│ 1         │ 1     │ 1      │',
+        '└───────────┴───────┴────────┘',
+        '',
+    ])->implode("\n"));;
+});
+
+it('can generate a binary matrix with labels as the input', function () {
+    $table = Matrix::bits(['breakfast', 'lunch', 'dinner'])->toTable();
+
+    expect($table)->toBe(collect([
+        '┌───────────┬───────┬────────┐',
+        '│ breakfast │ lunch │ dinner │',
+        '├───────────┼───────┼────────┤',
+        '│ 0         │ 0     │ 0      │',
+        '│ 0         │ 0     │ 1      │',
+        '│ 0         │ 1     │ 0      │',
+        '│ 0         │ 1     │ 1      │',
+        '│ 1         │ 0     │ 0      │',
+        '│ 1         │ 0     │ 1      │',
+        '│ 1         │ 1     │ 0      │',
+        '│ 1         │ 1     │ 1      │',
+        '└───────────┴───────┴────────┘',
+        '',
+    ])->implode("\n"));;
+});
+
+it('can do a cartesian product', function () {
+    $table = Matrix::make()->columnHeaders(['one', 'two', 'three'])->rows([
+        [1, 2, 3],
+    ])->cartesianProduct([
+        [4, 5],
+        [6, 7],
+        [8],
+        [9],
+    ])->columnHeaders(['one', 'two', 'three', 'four', 'five'])->toTable();
+
+    expect($table)->toBe(collect([
+        '┌─────┬─────┬───────┬──────┬──────┐',
+        '│ one │ two │ three │ four │ five │',
+        '├─────┼─────┼───────┼──────┼──────┤',
+        '│ 1   │ 4   │ 6     │ 8    │ 9    │',
+        '│ 1   │ 4   │ 7     │ 8    │ 9    │',
+        '│ 1   │ 5   │ 6     │ 8    │ 9    │',
+        '│ 1   │ 5   │ 7     │ 8    │ 9    │',
+        '│ 2   │ 4   │ 6     │ 8    │ 9    │',
+        '│ 2   │ 4   │ 7     │ 8    │ 9    │',
+        '│ 2   │ 5   │ 6     │ 8    │ 9    │',
+        '│ 2   │ 5   │ 7     │ 8    │ 9    │',
+        '│ 3   │ 4   │ 6     │ 8    │ 9    │',
+        '│ 3   │ 4   │ 7     │ 8    │ 9    │',
+        '│ 3   │ 5   │ 6     │ 8    │ 9    │',
+        '│ 3   │ 5   │ 7     │ 8    │ 9    │',
+        '└─────┴─────┴───────┴──────┴──────┘',
+        '',
+    ])->implode("\n"));
+});
+
+it('can do a cartesian product for just the rows in the matrix', function () {
+    $table = Matrix::make()->rows([
+        [0, 0, 0],
+        [1, 1, 1],
+    ])->transpose();
+
+    expect($table->toTable())->toBe(collect([
+        '┌───┬───┐',
+        '│ 0 │ 1 │',
+        '│ 0 │ 1 │',
+        '│ 0 │ 1 │',
+        '└───┴───┘',
+        '',
+    ])->implode("\n"));
+
+    $table = $table->cartesianProduct()->columnHeaders(['breakfast', 'lunch', 'dinner']);
+
+    expect($table->toTable())->toBe(collect([
+        '┌───────────┬───────┬────────┐',
+        '│ breakfast │ lunch │ dinner │',
+        '├───────────┼───────┼────────┤',
+        '│ 0         │ 0     │ 0      │',
+        '│ 0         │ 0     │ 1      │',
+        '│ 0         │ 1     │ 0      │',
+        '│ 0         │ 1     │ 1      │',
+        '│ 1         │ 0     │ 0      │',
+        '│ 1         │ 0     │ 1      │',
+        '│ 1         │ 1     │ 0      │',
+        '│ 1         │ 1     │ 1      │',
+        '└───────────┴───────┴────────┘',
+        '',
+    ])->implode("\n"));
+});
