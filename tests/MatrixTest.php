@@ -659,7 +659,8 @@ it('can generate a binary matrix', function () {
         '│ 1         │ 1     │ 1      │',
         '└───────────┴───────┴────────┘',
         '',
-    ])->implode("\n"));;
+    ])->implode("\n"));
+    ;
 });
 
 it('can generate a binary matrix with labels as the input', function () {
@@ -679,7 +680,8 @@ it('can generate a binary matrix with labels as the input', function () {
         '│ 1         │ 1     │ 1      │',
         '└───────────┴───────┴────────┘',
         '',
-    ])->implode("\n"));;
+    ])->implode("\n"));
+    ;
 });
 
 it('can do a cartesian product', function () {
